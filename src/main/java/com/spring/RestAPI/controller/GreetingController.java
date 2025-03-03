@@ -1,12 +1,15 @@
 package com.spring.RestAPI.controller;
 
+import com.spring.RestAPI.model.Greeting;
 import com.spring.RestAPI.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/greetings")
 public class GreetingController {
 
     private final GreetingService greetingService;
@@ -16,10 +19,36 @@ public class GreetingController {
         this.greetingService = greetingService;
     }
 
-    @GetMapping("/greeting")
-    public String getGreeting(
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName) {
-        return greetingService.getGreetingMessage(firstName, lastName);
+    // Create Greeting
+    @PostMapping
+    public Greeting createGreeting(@RequestParam(required = false) String firstName,
+                                   @RequestParam(required = false) String lastName) {
+        return greetingService.createGreeting(firstName, lastName);
+    }
+
+    // Get Greeting by ID
+    @GetMapping("/{id}")
+    public Optional<Greeting> getGreetingById(@PathVariable Long id) {
+        return greetingService.getGreetingById(id);
+    }
+
+    // Get All Greetings
+    @GetMapping
+    public List<Greeting> getAllGreetings() {
+        return greetingService.getAllGreetings();
+    }
+
+    // Update Greeting
+    @PutMapping("/{id}")
+    public Greeting updateGreeting(@PathVariable Long id,
+                                   @RequestParam(required = false) String firstName,
+                                   @RequestParam(required = false) String lastName) {
+        return greetingService.updateGreeting(id, firstName, lastName);
+    }
+
+    // Delete Greeting
+    @DeleteMapping("/{id}")
+    public String deleteGreeting(@PathVariable Long id) {
+        return greetingService.deleteGreeting(id) ? "Greeting deleted successfully" : "Greeting not found";
     }
 }
