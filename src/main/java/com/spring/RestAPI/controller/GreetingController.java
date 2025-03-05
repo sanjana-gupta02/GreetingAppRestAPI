@@ -1,6 +1,6 @@
 package com.spring.RestAPI.controller;
 
-import com.spring.RestAPI.model.Greeting;
+import com.spring.RestAPI.entity.Greeting;
 import com.spring.RestAPI.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

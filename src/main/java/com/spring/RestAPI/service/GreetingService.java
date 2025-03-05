@@ -1,6 +1,6 @@
 package com.spring.RestAPI.service;
 
-import com.spring.RestAPI.model.Greeting;
+import com.spring.RestAPI.entity.Greeting;
 import com.spring.RestAPI.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
