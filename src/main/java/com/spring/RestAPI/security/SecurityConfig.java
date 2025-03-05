@@ -1,4 +1,4 @@
-package com.spring.RestAPI.security;  // Ensure this is in the correct package
+package com.spring.RestAPI.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +13,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())  // Disable CSRF for API-based authentication
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/h2-console/**").permitAll() // Allow register API and H2 Console
+                        .requestMatchers("/auth/register", "/auth/login", "/h2-console/**").permitAll() // Allow public access to login
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())  // Disable CSRF for APIs
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())); // Allow H2 Console frame embedding
 
         return http.build();
